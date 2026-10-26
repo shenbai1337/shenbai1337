@@ -21,7 +21,7 @@
 </script>
 
 <style>
-  /* ========== 注册可过渡的颜色变量（柔和渐变的关键） ========== */
+  /* ========== 注册可过渡的颜色变量 ========== */
   @property --bg-1        { syntax: '<color>'; inherits: true; initial-value: #1e1b4b; }
   @property --bg-2        { syntax: '<color>'; inherits: true; initial-value: #312e81; }
   @property --bg-3        { syntax: '<color>'; inherits: true; initial-value: #0f172a; }
@@ -42,7 +42,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* ========== 深色主题（默认） ========== */
+  /* ========== 深色主题 ========== */
   :root,
   :root[data-theme="dark"] {
     --bg-1: #1e1b4b;
@@ -54,8 +54,7 @@
     --text-dim: #94a3b8;
     --card-bg: rgba(255, 255, 255, 0.07);
     --card-border: rgba(255, 255, 255, 0.14);
-    --card-shadow: 0 24px 60px rgba(0, 0, 0, 0.45),
-                   inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    --card-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     --tag-bg: rgba(129, 140, 248, 0.12);
     --tag-border: rgba(129, 140, 248, 0.3);
     --tag-text: #c7d2fe;
@@ -65,26 +64,14 @@
     --glow-1: #818cf8;
     --glow-2: #22d3ee;
     --glow-opacity: 0.5;
+    --mask-color: rgba(15, 23, 42, 0.7);
 
     transition:
-      --bg-1 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --bg-2 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --bg-3 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --accent-1 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --accent-2 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --text 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --text-dim 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --card-bg 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --card-border 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --tag-bg 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --tag-border 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --tag-text 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --tag-hover-bg 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --toggle-bg 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --toggle-border 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --glow-1 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --glow-2 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      --glow-opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg-1 0.7s, --bg-2 0.7s, --bg-3 0.7s, --accent-1 0.7s, --accent-2 0.7s,
+      --text 0.7s, --text-dim 0.7s, --card-bg 0.7s, --card-border 0.7s,
+      --tag-bg 0.7s, --tag-border 0.7s, --tag-text 0.7s, --tag-hover-bg 0.7s,
+      --toggle-bg 0.7s, --toggle-border 0.7s, --glow-1 0.7s, --glow-2 0.7s,
+      --glow-opacity 0.7s, --mask-color 0.7s;
   }
 
   /* ========== 浅色主题 ========== */
@@ -98,8 +85,7 @@
     --text-dim: #64748b;
     --card-bg: rgba(255, 255, 255, 0.7);
     --card-border: rgba(255, 255, 255, 0.9);
-    --card-shadow: 0 24px 60px rgba(99, 102, 241, 0.18),
-                   inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    --card-shadow: 0 24px 60px rgba(99, 102, 241, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
     --tag-bg: rgba(99, 102, 241, 0.1);
     --tag-border: rgba(99, 102, 241, 0.25);
     --tag-text: #4338ca;
@@ -109,11 +95,12 @@
     --glow-1: #c7d2fe;
     --glow-2: #a5f3fc;
     --glow-opacity: 0.65;
+    --mask-color: rgba(255, 255, 255, 0.5);
   }
 
   html {
     background: var(--bg-3);
-    transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.7s;
   }
 
   body {
@@ -121,86 +108,70 @@
     display: grid;
     place-items: center;
     padding: 24px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     color: var(--text);
-    background: linear-gradient(135deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
-    background-size: 200% 200%;
-    animation: bgShift 18s ease infinite;
     position: relative;
     overflow-x: hidden;
   }
 
-  @keyframes bgShift {
-    0%, 100% { background-position: 0% 50%; }
-    50%      { background-position: 100% 50%; }
+  /* ========== 背景图片轮播 ========== */
+  .bg-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2; background: var(--bg-3);
+  }
+  .bg-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;
+    filter: blur(8px) brightness(0.8); 
+  }
+  .bg-img.active { opacity: 1; }
+
+  .bg-mask {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; background: var(--mask-color); transition: background 0.7s;
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
   }
 
-  /* 背景光斑 */
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: var(--glow-opacity);
-    pointer-events: none;
-    z-index: 0;
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 原有光斑背景 */
+  body::before, body::after {
+    content: ""; position: fixed; border-radius: 50%; filter: blur(90px);
+    opacity: calc(var(--glow-opacity) * 0.5); pointer-events: none; z-index: 0;
+    transition: opacity 0.7s;
   }
   body::before {
-    width: 380px; height: 380px;
-    background: var(--glow-1);
-    top: -120px; left: -120px;
-    animation: float1 14s ease-in-out infinite;
+    width: 380px; height: 380px; background: var(--glow-1);
+    top: -120px; left: -120px; animation: float1 14s ease-in-out infinite;
   }
   body::after {
-    width: 420px; height: 420px;
-    background: var(--glow-2);
-    bottom: -150px; right: -140px;
-    animation: float2 16s ease-in-out infinite;
+    width: 420px; height: 420px; background: var(--glow-2);
+    bottom: -150px; right: -140px; animation: float2 16s ease-in-out infinite;
   }
-  @keyframes float1 {
-    0%, 100% { transform: translate(0, 0); }
-    50%      { transform: translate(60px, 40px); }
-  }
-  @keyframes float2 {
-    0%, 100% { transform: translate(0, 0); }
-    50%      { transform: translate(-70px, -50px); }
+  @keyframes float1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(60px,40px);} }
+  @keyframes float2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-70px,-50px);} }
+
+  /* ========== 右上角控制按钮组 ========== */
+  .controls {
+    position: fixed; top: 20px; right: 20px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 10;
   }
 
-  /* ========== 主题切换按钮 ========== */
-  .theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    cursor: pointer;
-    background: var(--toggle-bg);
-    border: 1px solid var(--toggle-border);
-    color: var(--text);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+  .control-btn {
+    width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+    background: var(--toggle-bg); border: 1px solid var(--toggle-border);
+    color: var(--text); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    z-index: 10;
-    transition: transform 0.25s,
-                background 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s, background 0.7s, color 0.7s;
   }
-  .theme-toggle:hover { transform: rotate(12deg) scale(1.08); }
-  .theme-toggle:active { transform: scale(0.94); }
+  .control-btn:hover { transform: scale(1.08); }
+  
+  /* 音乐播放时的唱片旋转动画 */
+  .control-btn.playing .music-icon { animation: spin 3s linear infinite; }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
 
-  .theme-toggle .icon {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: 20px;
-    height: 20px;
-    transition: opacity 0.35s, transform 0.5s;
-  }
+  .control-btn .icon { width: 20px; height: 20px; transition: opacity 0.35s, transform 0.5s; }
+  
+  /* 主题切换图标淡入淡出 */
   .theme-toggle .icon-sun  { opacity: 0; transform: rotate(-90deg) scale(0.5); }
   .theme-toggle .icon-moon { opacity: 1; transform: rotate(0) scale(1); }
   :root[data-theme="light"] .theme-toggle .icon-sun  { opacity: 1; transform: rotate(0) scale(1); }
@@ -208,210 +179,148 @@
 
   /* ========== 名片卡片 ========== */
   .card {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 420px;
-    padding: 44px 32px 36px;
-    border-radius: 24px;
-    text-align: center;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
+    position: relative; z-index: 1; width: 100%; max-width: 420px;
+    padding: 44px 32px 36px; border-radius: 24px; text-align: center;
+    background: var(--card-bg); border: 1px solid var(--card-border);
     box-shadow: var(--card-shadow);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     animation: cardIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-    transition: background 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.7s, border-color 0.7s, box-shadow 0.7s;
   }
   @keyframes cardIn {
     from { opacity: 0; transform: translateY(28px) scale(0.96); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  /* 头像（改为图片显示） */
   .avatar {
-    width: 104px;
-    height: 104px;
-    margin: 0 auto 22px;
-    border-radius: 50%;
-    object-fit: cover; /* 确保图片不变形 */
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1),
-                0 12px 30px rgba(129, 140, 248, 0.45);
-    animation: pulse 3s ease-in-out infinite;
-    display: block;
+    width: 104px; height: 104px; margin: 0 auto 22px;
+    border-radius: 50%; object-fit: cover;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 12px 30px rgba(129, 140, 248, 0.45);
+    animation: pulse 3s ease-in-out infinite; display: block;
   }
   @keyframes pulse {
     0%, 100% { box-shadow: 0 0 0 4px rgba(255,255,255,0.10), 0 12px 30px rgba(129,140,248,0.45); }
     50%      { box-shadow: 0 0 0 10px rgba(255,255,255,0.05), 0 12px 40px rgba(34,211,238,0.55); }
   }
 
-  /* 名字 */
   .name {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: 1px;
+    font-size: 2rem; font-weight: 800; letter-spacing: 1px;
     background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-1));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shine 6s linear infinite;
+    background-size: 200% auto; -webkit-background-clip: text;
+    background-clip: text; color: transparent; animation: shine 6s linear infinite;
   }
-  @keyframes shine {
-    to { background-position: 200% center; }
-  }
+  @keyframes shine { to { background-position: 200% center; } }
 
   .tagline {
-    margin-top: 10px;
-    font-size: 0.95rem;
-    color: var(--text-dim);
-    line-height: 1.7;
-    transition: color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 10px; font-size: 0.95rem; color: var(--text-dim); line-height: 1.7;
+    transition: color 0.7s;
   }
 
   .divider {
-    width: 56px;
-    height: 3px;
-    margin: 26px auto;
-    border-radius: 3px;
+    width: 56px; height: 3px; margin: 26px auto; border-radius: 3px;
     background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
   }
 
-  /* 技能标签 */
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
+  .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
   .tag {
-    padding: 6px 14px;
-    font-size: 0.82rem;
-    color: var(--tag-text);
-    border-radius: 999px;
-    background: var(--tag-bg);
-    border: 1px solid var(--tag-border);
-    transition: transform 0.25s,
-                background 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 6px 14px; font-size: 0.82rem; color: var(--tag-text);
+    border-radius: 999px; background: var(--tag-bg); border: 1px solid var(--tag-border);
+    transition: transform 0.25s, background 0.7s, border-color 0.7s, color 0.7s;
   }
-  .tag:hover {
-    transform: translateY(-2px);
-    background: var(--tag-hover-bg);
-  }
+  .tag:hover { transform: translateY(-2px); background: var(--tag-hover-bg); }
 
-  /* ========== 社交图标（改为图片） ========== */
-  .social {
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    margin-top: 30px;
-  }
-  
+  .social { display: flex; justify-content: center; gap: 18px; margin-top: 30px; }
   .social-link {
-    width: 54px;
-    height: 54px;
-    border-radius: 16px; /* 让图片呈现圆角矩形 */
-    display: block;
-    overflow: hidden;
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.25s;
+    width: 54px; height: 54px; border-radius: 16px; display: block;
+    overflow: hidden; transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s;
   }
-  
-  .social-link img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .social-link:hover {
-    transform: translateY(-5px) scale(1.08);
-    box-shadow: 0 10px 22px rgba(99, 102, 241, 0.35);
-  }
-  
-  .social-link:focus-visible {
-    outline: 2px solid var(--accent-1);
-    outline-offset: 3px;
-  }
+  .social-link img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .social-link:hover { transform: translateY(-5px) scale(1.08); box-shadow: 0 10px 22px rgba(99, 102, 241, 0.35); }
 
   .footer {
-    margin-top: 28px;
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    opacity: 0.8;
-    letter-spacing: 0.5px;
-    transition: color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 28px; font-size: 0.75rem; color: var(--text-dim);
+    opacity: 0.8; letter-spacing: 0.5px; transition: color 0.7s;
   }
 
-  /* 响应式 */
   @media (max-width: 420px) {
     .card { padding: 36px 22px 30px; }
     .name { font-size: 1.65rem; }
     .avatar { width: 88px; height: 88px; }
     .social { gap: 14px; }
     .social-link { width: 48px; height: 48px; border-radius: 14px; }
-    .theme-toggle { top: 14px; right: 14px; width: 42px; height: 42px; }
+    .controls { top: 14px; right: 14px; }
+    .control-btn { width: 42px; height: 42px; }
   }
 </style>
 </head>
 <body>
 
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
-    <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="4"/>
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41
-               M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-    </svg>
-    <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </svg>
-  </button>
+  <!-- 背景图轮播容器 -->
+  <div class="bg-container">
+    <img class="bg-img active" src="./bg1.jpg" alt="背景图1">
+    <img class="bg-img" src="./bg2.jpg" alt="背景图2">
+    <img class="bg-img" src="./bg3.jpg" alt="背景图3">
+  </div>
+  <div class="bg-mask"></div>
+
+  <!-- 右上角控制按钮组 -->
+  <div class="controls">
+    <!-- 下一首按钮 -->
+    <button class="control-btn" id="nextTrack" type="button" aria-label="下一首" title="下一首">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="5 4 15 12 5 20 5 4"></polygon>
+        <line x1="19" y1="5" x2="19" y2="19"></line>
+      </svg>
+    </button>
+
+    <!-- 音乐播放/暂停按钮 -->
+    <button class="control-btn music-toggle" id="musicToggle" type="button" aria-label="播放/暂停音乐" title="播放/暂停音乐">
+      <svg class="icon music-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+    </button>
+
+    <!-- 明暗切换按钮 -->
+    <button class="control-btn theme-toggle" id="themeToggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
 
   <main class="card">
-    <!-- 1. 头像图片插入 -->
     <img class="avatar" src="./avatar.jpg" alt="神白的头像">
-
     <h1 class="name">神白</h1>
-    <p class="tagline">你好，我是神白。<br>提供你所需要。</p>
-
+    <p class="tagline">你好，我是神白。<br>热爱折腾各种有趣的小东西。</p>
     <div class="divider"></div>
-
     <div class="tags">
-      <span class="tag">参数</span>
-      <span class="tag">续费</span>
-      <span class="tag">网页开发</span>
-      <span class="tag">软件</span>
+      <span class="tag">Web 开发</span>
+      <span class="tag">设计</span>
+      <span class="tag">开源</span>
+      <span class="tag">摄影</span>
     </div>
 
-    <!-- 2. 社交图标图片插入 -->
     <div class="social">
-      <!-- 哔哩哔哩 -->
-      <a class="social-link"
-         href="https://space.bilibili.com/1679697493"
-         target="_blank" rel="noopener"
-         aria-label="哔哩哔哩个人主页" title="哔哩哔哩个人主页">
+      <a class="social-link" href="https://space.bilibili.com/1679697493" target="_blank" rel="noopener" title="哔哩哔哩个人主页">
         <img src="./bilibili.png" alt="Bilibili">
       </a>
-
-      <!-- QQ -->
-      <a class="social-link"
-         href="https://wpa.qq.com/msgrd?v=3&uin=3498484458&site=qq&menu=yes"
-         target="_blank" rel="noopener"
-         aria-label="添加我的 QQ 好友" title="添加我的 QQ 好友">
+      <a class="social-link" href="https://wpa.qq.com/msgrd?v=3&uin=3498484458&site=qq&menu=yes" target="_blank" rel="noopener" title="添加我的 QQ 好友">
         <img src="./qq.png" alt="QQ">
       </a>
     </div>
-
     <p class="footer">© 2026 神白 · Powered by GitHub Pages</p>
   </main>
 
+  <!-- 背景音乐 (去掉了原本的 src 和 loop，由 JS 控制) -->
+  <audio id="bgMusic"></audio>
+
   <script>
+    // --- 1. 主题切换逻辑 ---
     (function () {
       var root = document.documentElement;
       var btn = document.getElementById('themeToggle');
@@ -420,6 +329,71 @@
         var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         root.setAttribute('data-theme', next);
         try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+
+    // --- 2. 背景图片轮播逻辑 ---
+    (function () {
+      var images = document.querySelectorAll('.bg-img');
+      if (images.length <= 1) return;
+      var currentIndex = 0;
+      setInterval(function () {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add('active');
+      }, 5000);
+    })();
+
+    // --- 3. 多首音乐播放逻辑 ---
+    (function () {
+      // 在这里填入你的音乐文件列表，想加几首加几首
+      var playlist = [
+        './music1.mp3', 
+        './music2.mp3', 
+        './music3.mp3'
+      ];
+      
+      var currentTrack = 0;
+      var bgMusic = document.getElementById('bgMusic');
+      var musicToggle = document.getElementById('musicToggle');
+      var nextBtn = document.getElementById('nextTrack');
+
+      // 加载并播放当前歌曲
+      function loadAndPlay() {
+        bgMusic.src = playlist[currentTrack];
+        bgMusic.play().then(function() {
+          musicToggle.classList.add('playing');
+        }).catch(function(err) {
+          console.log("播放被浏览器拦截或文件缺失", err);
+          musicToggle.classList.remove('playing');
+        });
+      }
+
+      // 初始化加载第一首，但不自动播放（等待用户点击）
+      bgMusic.src = playlist[currentTrack];
+
+      // 播放/暂停按钮逻辑
+      musicToggle.addEventListener('click', function () {
+        if (bgMusic.paused) {
+          bgMusic.play().then(function() {
+            musicToggle.classList.add('playing');
+          }).catch(function(err) { console.log(err); });
+        } else {
+          bgMusic.pause();
+          musicToggle.classList.remove('playing');
+        }
+      });
+
+      // 下一首按钮逻辑
+      nextBtn.addEventListener('click', function () {
+        currentTrack = (currentTrack + 1) % playlist.length;
+        loadAndPlay();
+      });
+
+      // 当一首歌播放结束时，自动切到下一首 (实现循环播放)
+      bgMusic.addEventListener('ended', function() {
+        currentTrack = (currentTrack + 1) % playlist.length;
+        loadAndPlay();
       });
     })();
   </script>
